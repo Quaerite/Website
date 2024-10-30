@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laquequette</title>
     <style>
-        body, html {
+        body {
             margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
             overflow: hidden;
         }
         #image {
             position: absolute;
-            transition: all 1s ease;
+            transition: transform 0.5s;
         }
     </style>
 </head>
 <body>
-    <img id="image" src="config.png" alt="Image">
+    <img id="image" src="config.png" alt="Config Image">
+
     <script>
+        // Fonction pour générer une couleur aléatoire
         function getRandomColor() {
             const letters = '0123456789ABCDEF';
             let color = '#';
@@ -35,26 +34,29 @@
             document.body.style.backgroundColor = getRandomColor();
         }
 
-        // Fonction pour déplacer l'image
-        function moveImage() {
-            const img = document.getElementById('image');
-            const maxWidth = window.innerWidth - img.width;
-            const maxHeight = window.innerHeight - img.height;
-            const randomX = Math.floor(Math.random() * maxWidth);
-            const randomY = Math.floor(Math.random() * maxHeight);
-            img.style.left = randomX + 'px';
-            img.style.top = randomY + 'px';
+        // Fonction pour changer la position de l'image
+        function changeImagePosition() {
+            const image = document.getElementById('image');
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const imageWidth = image.width;
+            const imageHeight = image.height;
+
+            const maxX = windowWidth - imageWidth;
+            const maxY = windowHeight - imageHeight;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            image.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
-        // Initialisation après 2 secondes
+        // Initialiser le fond blanc pendant 0.5 secondes
         setTimeout(() => {
-            // Changer la couleur de fond toutes les 2 secondes
+            document.body.style.backgroundColor = getRandomColor();
             setInterval(changeBackgroundColor, 2000);
-
-            // Afficher l'image et la déplacer toutes les secondes
-            document.getElementById('image').style.display = 'block';
-            setInterval(moveImage, 1000);
-        }, 2000);
+            setInterval(changeImagePosition, 500);
+        }, 500);
     </script>
 </body>
 </html>
