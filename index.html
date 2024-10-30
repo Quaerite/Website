@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laquequette</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #image {
+            position: absolute;
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <img id="image" src="config.jpg" alt="Image">
+    <script>
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Fonction pour changer la couleur de fond
+        function changeBackgroundColor() {
+            document.body.style.backgroundColor = getRandomColor();
+        }
+
+        // Fonction pour déplacer l'image
+        function moveImage() {
+            const img = document.getElementById('image');
+            const maxWidth = window.innerWidth - img.width;
+            const maxHeight = window.innerHeight - img.height;
+            const randomX = Math.floor(Math.random() * maxWidth);
+            const randomY = Math.floor(Math.random() * maxHeight);
+            img.style.left = randomX + 'px';
+            img.style.top = randomY + 'px';
+        }
+
+        // Initialisation après 2 secondes
+        setTimeout(() => {
+            // Changer la couleur de fond toutes les 2 secondes
+            setInterval(changeBackgroundColor, 2000);
+
+            // Afficher l'image et la déplacer toutes les secondes
+            document.getElementById('image').style.display = 'block';
+            setInterval(moveImage, 1000);
+        }, 2000);
+    </script>
+</body>
+</html>
